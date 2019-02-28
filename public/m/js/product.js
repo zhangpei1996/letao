@@ -10,7 +10,7 @@ $(function () {
             let productTemplate = template('productTemplate', {list:data});
             $('.mui-scroll').html(productTemplate);
         }, 1000);
-        /* 哈哈哈 */
+        /* 哈哈哈  */
     });
 });
 /* 获取商品参数 */
