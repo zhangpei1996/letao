@@ -46,11 +46,19 @@
             </footer>
         </section>
     </div>
-
+    <!-- 
+        商品可能没有图片，所以需要处理数据，添加默认图片  可以用  list.pic = []; 来进行测试没有图片的时候
+        size:也需要做数据处理
+    -->
     <script id="productTemplate" type="text/html">
+        <% 
+            if (!list.pic || !list.pic.length) {
+                list.pic = [{picAddr:'images/none.jpg'}]
+            }
+        %>
         <div class="mui-slider">
             <div class="mui-slider-group mui-slider-loop">
-                <div class="mui-slider-item">
+                <div class="mui-slider-item mui-slider-item-duplicate">
                     <a href=""><img src="{{list.pic[list.pic.length - 1].picAddr}}" alt=""></a>
                 </div>
                 {{each list.pic}}
@@ -58,7 +66,7 @@
                     <a href=""><img src="{{$value.picAddr}}" alt=""></a>
                 </div>
                 {{/each}}
-                <div class="mui-slider-item">
+                <div class="mui-slider-item mui-slider-item-duplicate">
                     <a href=""><img src="{{list.pic[0].picAddr}}" alt=""></a>
                 </div>
             </div>
@@ -75,17 +83,13 @@
         </div>
         <div class="p_size">
             尺码：
-            <span class="btn_size">40</span>
-            <span class="btn_size">41</span>
-            <span class="btn_size">42</span>
-            <span class="btn_size">43</span>
-            <span class="btn_size">44</span>
-            <span class="btn_size">45</span>
-            <span class="btn_size">46</span>
-            <span class="btn_size">47</span>
-            <span class="btn_size">48</span>
-            <span class="btn_size">49</span>
-            <span class="btn_size">50</span>
+            <% 
+            var arr = list.size.split('-');
+            var min = arr[0];
+            var max = arr[1];
+            for (var i = min; i <= max; i ++) { %>
+            <span class="btn_size"><%=i%></span>
+            <% } %>
         </div>
         <div class="p_number">
             数量：
