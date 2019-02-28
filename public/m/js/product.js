@@ -55,15 +55,17 @@ $(function () {
                     return;
                 }
                 /* 提交数据 */
-                $.post('/cart/addCart', {
-                    productId: urlParams.productId,
-                    num: $num,
-                    size: $size
-                }, function (res) {
-                    console.log(res);
-                    if (res.error == 400) {
-                        /* 代表未登录 跳转到登录页 并且把当前地址传递给登录页面 登陆成功后跳转回原页面 */
-                        return;
+                lt.loginAjax({
+                    url: '/cart/addCart',
+                    type: 'post',
+                    data: {
+                        productId: urlParams.productId,
+                        num: $num,
+                        size: $size,
+                    }, 
+                    dataType: 'json',
+                    success: function (res) {
+                        
                     }
                 });
             });
