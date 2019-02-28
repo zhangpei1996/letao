@@ -1,57 +1,150 @@
-/*search form*/
-.lt_search{
-    margin-top: 10px;
-    padding: 0 10px;
+/* 搜索中心样式 */
+.lt_search {
+    padding: 10px;
 }
-.lt_search form{
+.lt_search form {
+    width: 100%;
+    height: 30px;
     position: relative;
 }
-.lt_search form .search_input{
-    background: #fff;
-    border: 1px solid #069;
+.lt_search form input {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
     text-align: left;
-    font-size: 12px;
+    padding-left: 10px;
+    background-color: #fff;
+    border: 1px solid #006699;
+    font-size: 14px;
 }
-.lt_search form .search_btn{
+.lt_search form a {
+    width: 60px;
+    height: 30px;
     position: absolute;
+    background-color: #006699;
+    text-align: center;
+    line-height: 30px;
+    color: #fff;
     right: 0;
     top: 0;
-    width: 60px;
-    height: 34px;
-    background: #069;
-    text-align: center;
-    line-height: 34px;
-    color: #fff;
-    font-size: 12px;
     border-radius: 0 6px 6px 0;
 }
-
-/* search history */
-.lt_history{
+.lt_history {
+    padding: 0 10px 10px;
+}
+.lt_history span {
+    color: #666;
     font-size: 12px;
-    padding: 0 10px;
-    color: #999;
-    padding-bottom: 50px;
 }
-.lt_history .fa-trash{
-    height: 21px;
-    line-height: 21px;
+.lt_history .title {
+    float: left;
 }
-.lt_history ul{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border-bottom: 1px dashed #ccc;
+.lt_history .icon_clear {
+    float: right;
+    display: none;
+}
+.lt_history ul {
+    width: 100%;
     margin-top: 10px;
 }
-.lt_history ul li{
-    border: 1px dashed #ccc;
+.lt_history ul li {
     height: 30px;
-    line-height: 30px;
+    width: 100%;
+    border: 1px solid #ccc;
     border-bottom: none;
-    padding-left: 10px;
+    position: relative;
+    line-height: 30px;
+    padding: 0 10px;
 }
-.lt_history ul li .mui-icon-closeempty{
-    float: right;
-    margin-top: 2px;
+.lt_history ul li:last-of-type {
+    border-bottom: 1px solid #ccc;
+}
+.lt_history ul li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+    color: #666;
+}
+.lt_history ul li span {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+.hint {
+    position: absolute;
+    width: 150px;
+    height: 40px;
+    background-color: black;
+    color: #fff;
+    line-height: 40px;
+    text-align: center;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* 搜索列表样式 */
+.lt_order {
+    width: 100%;
+    background-color: #efeff4;
+    height: 30px;
+}
+.lt_order a {
+    width: 25%;
+    height: 30px;
+    float: left;
+    color: #333;
+    text-align: center;
+    line-height: 30px;
+    font-size: 12px;
+}
+.lt_order a.active {
+    color: orange;
+}
+
+/* 商品模块 */
+.lt_product {
+    width: 100%;
+    padding: 10px;
+}
+.lt_product .pro_item {
+    width: 100%;
+}
+.lt_product .pro_item_box {
+    width: 48%;
+    min-height: 280px;
+    border: 1px solid #ccc;
+    display: block;
+    float: left;
+    margin-bottom: 10px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+    text-align: center;
+    padding: 10px;
+}
+.lt_product .pro_item_box:nth-of-type(2n) {
+    margin-left: 4%;
+}
+.pro_item_box img {
+    width: 100%;
+    display: block;
+}
+.pro_item_box p {
+}
+.pro_item_box p span {
+    margin: 0 3px;
+    font-size: 12px;
+}
+.pro_item_box p .nowPrice {
+    color: #f10215;
+}
+.pro_item_box p .oldPrice {
+    text-decoration: line-through;
+}
+.pro_item_box button {
+    background-color: #006699;
+    color: #fff;
 }

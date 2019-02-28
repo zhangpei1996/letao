@@ -1,13 +1,55 @@
-/*µ¼º½À¸*/
-.lt_nav{
-    margin-top: 10px;
-    padding: 0 10px;
+/* å¯¼èˆªæ¨¡å— */
+.lt_container .lt_nav {
+    width: 100%;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
 }
-.lt_nav a{
+.lt_container .lt_nav a {
+    width: 33.33%;
     float: left;
-    width: 33.3333%;
 }
-.lt_nav a img{
+.lt_container .lt_nav a img {
+    width: 100%;
+}
+/* å•†å“æ¨¡å— */
+.lt_container .lt_product {
+    width: 100%;
+    padding: 10px;
+}
+.lt_container .lt_product .pro_item {
+    width: 100%;
+}
+.lt_container .lt_product .pro_item_box {
+    width: 48%;
+    min-height: 280px;
+    border: 1px solid #ccc;
+    display: block;
+    float: left;
+    margin-bottom: 10px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+    text-align: center;
+    padding: 10px;
+}
+.lt_container .lt_product .pro_item_box:nth-of-type(2n) {
+    margin-left: 4%;
+}
+.lt_container .pro_item_box img {
     width: 100%;
     display: block;
+}
+.lt_container .pro_item_box p {
+}
+.lt_container .pro_item_box p span {
+    margin: 0 3px;
+    font-size: 12px;
+}
+.lt_container .pro_item_box p .nowPrice {
+    color: #f10215;
+}
+.lt_container .pro_item_box p .oldPrice {
+    text-decoration: line-through;
+}
+.lt_container .pro_item_box button {
+    background-color: #006699;
+    color: #fff;
 }

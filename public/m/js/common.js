@@ -1,44 +1,17 @@
-/*·â×°¹¤¾ßº¯Êı*/
-window.lt = {};
-/*»ñÈ¡µØÖ·À¸²ÎÊı*/
-lt.getUrlParams = function(){
-    /*ÄÃµ½ÒÔgetĞÎÊ½´«µİµÄµØÖ·À¸µÄÊı¾İ ?key=1&name=10*/
-    var search = location.search;
-    /*ĞèÒª°Ñ×Ö·û´®×ª»»³É¶ÔÏó  ±ãÓÚ¿ª·¢Ê¹ÓÃ*/
-    var params = {};
-    /*Èç¹ûÓĞ£¿´ú±íÓĞ²ÎÊı*/
-    /*Ã»ÓĞÎÊºÅ¾ÍÃ»ÓĞ²ÎÊı*/
-    if(search.indexOf('?') == 0){
-        search = search.substr(1);
-        var arr = search.split('&');
-        for(var i = 0 ; i < arr.length ; i++){
-            /*itemArr name=10  ----> [name,10]*/
-            var itemArr = arr[i].split('=');
-            params[itemArr[0]] = itemArr[1];
-        }
+let lt = {};
+lt.getParamsByURL = function () {
+    /* ä»¥å¯¹è±¡å­˜å‚¨åœ°å€æ ä¿¡æ¯ */
+    let paramas = {};
+    let search = location.search;
+    if (search) {
+        let str = search.substring(1);
+        /* å¦‚æœæœ‰å¤šä¸ªå‚æ•° */
+        let arr = str.split('&');
+        arr.forEach(function (item, i) {
+            let itemArr = item.split('=');
+            paramas[itemArr[0]] = itemArr[1];
+        });
+        return paramas;
     }
-    return params;
-}
-/*µÇÂ¼À¹½Ø  ·²ÊÂĞèÒªµÇÂ¼²Ù×÷ µ÷ÓÃ*/
-lt.ajaxFilter = function(options){
-    $.ajax({
-        type:options.type||'get',
-        url:options.url||location.pathname,
-        data:options.data||{},
-        dataType:options.dataType||'json',
-        beforeSend:function(){
-            options.beforeSend && options.beforeSend();
-        },
-        success:function(data){
-            /* error Èç¹û  400  ´ú±íÎ´µÇÂ¼ È¥µÇÂ¼Ò³  Ğ¯´øurl*/
-            if(data.error == 400){
-                location.href = '/m/user/login.html?returnUrl='+location.href
-            }else{
-                options.success && options.success(data);
-            }
-        },
-        error:function(){
-            options.error && options.error();
-        }
-    });
-}
+    return;
+};

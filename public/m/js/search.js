@@ -1,95 +1,97 @@
-/*初始化区域滚动组件*/
-mui('.mui-scroll-wrapper').scroll({
-    indicators:false
+$(function () {
+    /* 初始化搜索记录 */
+    initSearchHistory();
+    /* 搜索按钮的事件 */
+    searchBindTap();
+    /* 清空历史记录的事件 */
+    allRemoveHistory();
+    /* 单个历史记录删除事件 */
+    oneRemoveHistory();
+    /* 搜索历史的点击事件 */
+    localhostTap();
 });
-$(function(){
-    /*都会和localStorage打交道   约定一个键  leTaoHistory */
-
-    /*1渲染列表*/
-    /*获取*/
-    var historyList = getHistoryData();
-    /*渲染*/
-    $('.lt_history').html(template('historyTpl',{list:historyList}));
-    $('.search_input').val('');
-
-    /*2点击搜索*/
-    $('.search_btn').on('tap',function(){
-        /*获取关键字*/
-        var key = $.trim($('.search_input').val());
-        /*如果用户没有输入*/
-        if(!key){
-            /*提示*/
-            mui.toast('请输入关键字');
-            return false;
+/* 初始化搜索记录 */
+let initSearchHistory = function () {
+    let history = window.localStorage.getItem('history');
+    if (history) {
+        let arr = JSON.parse(history);
+        /* 使用模板 */
+        let historyTemplate = template('historyTemplate', {list:arr});
+        $('.lt_history ul').html(historyTemplate);
+        $('.title').html('搜索历史');
+        $('.icon_clear').show();
+    } else {
+        $('.title').html('没有历史搜索记录');
+        $('.icon_clear').hide();
+        $('.lt_history ul').empty();
+    }
+};
+/* 清空历史记录的事件 */
+let allRemoveHistory = function () {
+    $('.icon_clear').on('tap', function () {
+        /* 删除本地存储 */
+        window.localStorage.removeItem('history');
+        initSearchHistory();
+    });
+};
+/* 单个历史记录删除事件 */
+let oneRemoveHistory = function () {
+    $('.lt_history ul').on('tap', '.icon_delete', function () {
+        let value = $(this).prev('a').attr('data-key');
+        let history = window.localStorage.getItem('history');
+        let arr = JSON.parse(history);
+        /* 如果只剩下一个记录，点击后清空本地存储 */
+        if (arr.length == 1) {
+            window.localStorage.removeItem('history');
+            initSearchHistory();
+            return;
         }
-        /*记录这一次的搜索*/
-        var arr = getHistoryData();
-
-        /*1.在正常的10条记录内 正常添加*/
-        /*2.已经10条记录了    添加一条 并且 删除最早的一条 */
-        /*3.如果有相同记录    添加一条 并且 删除相同的一条 */
-        /*是否有相同数据*/
-        var isHave = false;
-        var haveIndex;
-        for(var i = 0 ; i < arr.length ; i ++){
-            if(key == arr[i]){
-                isHave = true;
-                haveIndex = i;
-                break;
+        let index = null;
+        arr.forEach(function (item, i) {
+            if (item == value) {
+                index = i;
             }
-        }
-        if(isHave){
-            /*3.如果有相同记录*/
-            arr.push(key);
-            /*删除*/
-            arr.splice(haveIndex,1);
-        }else{
-            if(arr.length < 10){
-                /*1.在正常的10条*/
-                arr.push(key);
-            }else{
-                /*已经10条记录*/
-                arr.push(key);
-                /*清除第一条*/
-                arr.splice(0,1);
+        });
+        arr.splice(index, 1);
+        let str = JSON.stringify(arr);
+        window.localStorage.setItem('history', str);
+        initSearchHistory();
+    });
+};
+/* 搜索按钮的事件 */
+let searchBindTap = function () {
+    $('.search').on('tap', function () {
+        let value = $.trim($(this).prev('input').val());
+        if (value) {
+            /* 获取本地缓存 */
+            let history = window.localStorage.getItem('history');
+            /* 将json字符串转为json对象 */
+            let data = [];
+            if (history) {
+                let arr = JSON.parse(history);
+                for (let key in arr) {
+                    data.push(arr[key]);
+                }
             }
+            data.push(value);
+            /* 将json对象转为json字符串 */
+            let str = JSON.stringify(data);
+            /* 存储本地缓存 */
+            window.localStorage.setItem('history', str);
+            /* 跳转去搜索列表页，并且带上关键列表页 */
+            window.location.href = 'searchList.html?key=' + value;
+        } else {
+            let $hint = $('<div>请输入搜索内容</div>').appendTo('.lt_wrapper').addClass('hint');
+            setTimeout(function () {
+                $hint.remove();
+            }, 3000);
         }
-        /*存起来*/
-        localStorage.setItem('leTaoHistory',JSON.stringify(arr));
-        /*跳转搜索列表*/
-        location.href = 'searchList.html?key='+key;
+    });   
+};
+/* 搜索历史的点击事件 */
+let localhostTap = function () {
+    $('.lt_history ul').on('tap', 'a', function () {
+        let value = $(this).attr('data-key');
+        window.location.href = 'searchList.html?key=' + value;
     });
-
-    /*3删除记录*/
-    $('.lt_history').on('tap','.mui-icon',function(){
-        /*1.获取索引*/
-        var index = $(this).attr('data-index');
-        /*2.获取数据*/
-        var arr = getHistoryData();
-        /*3.删除数据*/
-        arr.splice(index,1);
-        /*4.存储数据*/
-        localStorage.setItem('leTaoHistory',JSON.stringify(arr));
-        /*5.重新渲染*/
-        $('.lt_history').html(template('historyTpl',{list:arr}));
-    });
-
-    /*4清空记录*/
-    $('.lt_history').on('tap','.fa',function(){
-        /*清空数据*/
-        localStorage.setItem('leTaoHistory','');
-        /*重新渲染*/
-        $('.lt_history').html(template('historyTpl',{list:[]}));
-    });
-
-});
-/*获取存储数据*/
-var getHistoryData = function(){
-    /*1.约定一个键  leTaoHistory 值存的是json格式的字符串*/
-    /*2.通过这个键获取值 如果有就使用 如果没有默认空数组的字符串*/
-    var str = localStorage.getItem('leTaoHistory')||'[]';
-    /*3.转成成js数据*/
-    var arr = JSON.parse(str);
-    /*4.返回js可操作的数组*/
-    return arr;
-}
+};
