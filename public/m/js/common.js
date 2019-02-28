@@ -16,9 +16,9 @@ lt.getParamsByURL = function () {
     return;
 };
 /* 需要登录的ajax请求 */
-lt.loginUrl = '/m/user/login.html'
+lt.loginUrl = '/m/user/login.html';
+lt.cartUrl = '/m/user/cart.html';
 lt.loginAjax = function (params) {
-    console.log(params);
     $.ajax({
         type: params.type || 'get',
         url: params.url || '#',
