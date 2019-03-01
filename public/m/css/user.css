@@ -27,3 +27,12 @@
     float: right;
     font-size: 12px;
 }
+
+.logout {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+}
+.logout button {
+    width: 100%;
+}
