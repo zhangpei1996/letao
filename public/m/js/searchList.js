@@ -115,7 +115,7 @@ $(function () {
                             that.endPulldownToRefresh();
                             /* 重置上拉加载状态 */
                             that.refresh(true);
-                        }, 2000);
+                        }, 1000);
                     });
                 } 
             },
@@ -152,7 +152,7 @@ $(function () {
                                 /* 后台没有数据了，禁止上拉加载 */
                                 that.endPullupToRefresh(true);
                             }
-                        }, 2000);
+                        }, 1000);
                     });
                 }
             }

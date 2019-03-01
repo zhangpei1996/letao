@@ -2,6 +2,7 @@ $(function () {
     /* 获取url地址传递的参数 */
     let urlParams = lt.getParamsByURL();
     getProductData({id:urlParams.productId}, function (data) {
+        /* 加上一个定时器是为了模拟网络加载的时间 */
         setTimeout(() => {
             /* 渲染页面 */
             let productTemplate = template('productTemplate', {list:data});
