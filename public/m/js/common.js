@@ -18,6 +18,7 @@ lt.getParamsByURL = function () {
 /* 需要登录的ajax请求 */
 lt.loginUrl = '/m/user/login.html';
 lt.cartUrl = '/m/user/cart.html';
+lt.userUrl = '/m/user/index.html';
 lt.loginAjax = function (params) {
     $.ajax({
         type: params.type || 'get',
@@ -39,4 +40,19 @@ lt.loginAjax = function (params) {
             mui.toast('服务器繁忙');
         }
     });
+};
+/* 小知识：ie6、7等低版本浏览器未定义JSON对象，可以使用json2.js */
+/* 将序列化字符串转化为对象
+    key1=value1&key2=value2 --- 序列化字符串
+*/
+lt.serialize2object = function (serializeStr) {
+    let obj = {};
+    if (serializeStr) {
+        let arr = serializeStr.split('&');
+        arr.forEach(function (item, i) {
+            let itemArr = item.split('=');
+            obj[itemArr[0]] = itemArr[1];
+        });
+    }
+    return obj;
 };
