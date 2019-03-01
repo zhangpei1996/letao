@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <!-- ios系统：是否运行创建快捷启动方式 -->
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <!-- ios系统：顶部通知栏颜色 -->
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <!-- 遇到数字不让转成电话号码的格式 -->
+    <meta content="telephone=no" name="format-detection">
+    <!-- 遇到email不让转成电话号码的格式 -->
+    <meta content="email=no" name="format-detection">
+    <title>乐淘</title>
+    <meta name="description" content="乐淘是中国最大的正品运动鞋、皮鞋网上专卖。乐淘网经营的品牌包括耐克、阿迪达斯、李宁、匡威等国内外知名品牌的篮球鞋,板鞋,休闲鞋,跑步鞋,帆布...">
+    <meta name="Keywords" content="乐淘 乐淘鞋城 买鞋子 上乐淘 运动鞋 篮球鞋 帆布鞋 跑步鞋 男鞋 女鞋 足球鞋 休闲鞋 凉鞋 户外鞋 布洛克 高跟鞋 单鞋 豆豆鞋 乐福鞋 牛津鞋 凉拖 皮鞋 短靴 长靴 登山鞋 徒步鞋 硫化鞋 训练鞋 溯溪鞋 越野鞋 板鞋 足球鞋 网球鞋 赛车鞋 雪地靴 马丁靴 商务 英伦">
+    <link type="image/x-icon" rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="../assets/mui/css/mui.min.css"/>
+    <link rel="stylesheet" href="../assets/fontAwesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/common.css"/>
+    <link rel="stylesheet" href="../css/cart.css"/>
+</head>
+<body>
+    <!-- 首页内容 -->
+    <div class="lt_container">
+        <!-- 顶部通栏 -->
+        <header class="lt_header">
+            <a class="lt_left" href="javascript:history.back();"><span class="fa fa-arrow-left"></span></a>
+            <h3>购物车</h3>
+            <a class="lt_right" href="#"><span class="fa fa-refresh"></span></a>
+        </header>
+        <!-- 中间内容 -->
+        <section class="lt_content">
+            <!-- 滑动区域 -->
+            <div class="lt_wrapper">
+                <div id="refreshContainer" class="mui-scroll-wrapper">
+                    <div class="mui-scroll">
+                        <ul id="cartProductList" class="mui-table-view">
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="cart_order">订单总额：&yen;<span id="cartAmount">0.00</span> <a href="javascript:;">生成订单</a></div>
+        <footer class="lt_footer">
+            <a class="tab_home fa fa-home" href="../index.html"><span>首页</span></a>
+            <a class="tab_cate fa fa-bars" href="../category.html"><span>分类</span></a>
+            <a class="tab_cart fa fa-shopping-cart now" href="cart.html"><span>购物车</span></a>
+            <a class="tab_user fa fa-user" href="index.html"><span>会员中心</span></a>
+        </footer>
+    </div>
+    <script id="cartTemplate" type="text/html">
+        {{each list}}
+        <li data-product="{{$value.productId}}" class="mui-table-view-cell mui-media">
+            <div data-id="{{$value.id}}" class="mui-slider-right mui-disabled">
+                <a class="mui-btn mui-btn-blue mui-icon mui-icon-compose" style="transform: translate(0px, 0px);"></a>
+                <a class="mui-btn mui-btn-red mui-icon mui-icon-trash" style="transform: translate(-90px, 0px);"></a>
+            </div>
+            <div class="mui-slider-handle" style="transform: translate(-6px, 0px);">
+                <a href="javascript:;">
+                    {{if $value.pic && $value.pic[0].picAddr}}
+                    <img class="mui-media-object mui-pull-left" src="{{$value.pic[0].picAddr}}">
+                    {{else}}
+                    <img class="mui-media-object mui-pull-left" src="../images/none.jpg">
+                    {{/if}}
+                    <div class="mui-media-body">
+                        <p class="name">{{$value.proName}}</p>
+                        <p class="info">
+                            <span class="price">¥{{$value.price}}</span>
+                            <span class="oldPrice">¥{{$value.oldPrice}}</span>
+                            <span class="number">x{{$value.num}}双</span>
+                        </p>
+                        <p><span class="size">鞋码：{{$value.size}}</span></p>
+                    </div>
+                </a>
+                <input data-id="{{$value.id}}" type="checkbox"/>
+            </div>
+        </li>
+        {{/each}}
+    </script>
+    <script id="edit" type="text/html">
+        <div class="cart_update">
+            <div class="p_size">
+                尺码：
+                <% 
+                var arr = list.productSize.split('-');
+                var min = arr[0];
+                var max = arr[1];
+                for (var i = min; i <= max; i ++) { %>
+                <span class="btn_size {{if i == list.size}}now{{/if}}"><%=i%></span>
+                <% } %>
+            </div>
+            <div class="p_number">
+                数量：
+                <span class="jian">-</span><input readonly="" type="text" value="{{list.num}}" data-max="{{list.productNum}}"><span class="jia">+</span>
+            </div>
+        </div>
+    </script>
+    <script src="../assets/mui/js/mui.min.js"></script>
+    <script src="../assets/zepto/zepto.min.js"></script>
+    <script src="../assets/art-template/template-web.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/cart.js"></script>
+</body>
+</html>

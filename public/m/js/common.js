@@ -56,3 +56,13 @@ lt.serialize2object = function (serializeStr) {
     }
     return obj;
 };
+/* 通过id获取数据 */
+lt.getItemById = function (arr, id) {
+    let obj = null;
+    arr.forEach(function (item, i) {
+        if (item.id == id) {
+            obj = item;
+        }
+    });
+    return obj;
+};
