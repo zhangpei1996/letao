@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <title>后台管理系统-登录</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css">
+    <!-- 进度条插件 -->
+    <link rel="stylesheet" href="assets/nprogress/nprogress.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="brand text-center">
+            <a href="index.html">ITCAST</a>
+        </div>
+        <div class="user">
+            <img src="images/default.png" alt="">
+            <span>超级管理员</span>
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="#"><i class="glyphicon glyphicon-user"></i>用户管理</a></li>
+                <li><a href="javascript:;">
+                    <i class="glyphicon glyphicon-list"></i>商品管理</a>
+                    <div class="child">
+                        <a href="#">一级分类</a>
+                        <a href="/myAdmin/categorySecond.html">二级分类</a>
+                    </div>
+                </li>
+                <li><a href="#"><i class="glyphicon glyphicon-tags"></i>分类管理</a></li>
+            </ul>
+        </div>
+    </aside>
+    <section class="section">
+        <nav class="nav">
+            <a href="javascript:;" class="glyphicon glyphicon-align-justify fold"></a>
+            <!-- data-toggle="modal" data-target=".modal" 调用模态框的一种方式   另一种方式是js调用 -->
+            <a href="javascript:;" class="glyphicon glyphicon-log-out exit"></a>
+        </nav>
+        <div class="container-fluid">
+            <!--路径导航-->
+            <ol class="breadcrumb">
+                <li><a href="#">管理系统</a></li>
+                <li class="active">首页</li>
+            </ol>
+            <div class="ad_content">
+                <div class="picTable"></div>
+                <div class="picTable"></div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="assets/jquery/jquery.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.js"></script>
+    <script src="assets/nprogress/nprogress.js"></script>
+    <script src="assets/echarts/echarts.min.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>
