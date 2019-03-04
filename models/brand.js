@@ -8,7 +8,7 @@ function Brand(brand) {
      this.hot = brand.hot;
 };
 Brand.addSecondCategory = function (brand, callback) {
-  var selectSql = 'insert into brand (id,brandName,categoryId,brandLogo,isDelete,hot)  values (null,?,?,?,1,?)';
+  var selectSql = 'insert into brand (id,brandName,categoryId,brandLogo,isDelete,hot)  values (null,?,?,?,1,1)';
   db.query(selectSql, [brand.brandName,brand.categoryId,brand.brandLogo,brand.hot], function (err, result) {
     if (err) {
       return callback(err);
